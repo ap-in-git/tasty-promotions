@@ -3,10 +3,8 @@
 import React, {Fragment, useEffect} from 'react';
 import {Search} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {foodTags} from "@/lib/constant";
+import {foodTags, PromotionResult, RestaurantUser} from "@/lib/constant";
 import {createClient} from "@/lib/supabase/client";
-import {RestaurantUser} from "@/app/auth/register/page";
-import {PromotionResult} from "@/components/manage-promotion/ManagePromotion";
 import PromotionCard from "@/components/promotion-card";
 
 const HomePage : React.FC<{

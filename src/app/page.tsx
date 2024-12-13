@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Navbar from "@/components/navbar";
 import HomePage from "@/components/HomePage";
 import {createClient} from "@/lib/supabase/server";

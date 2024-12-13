@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import {createClient} from "@/lib/supabase/server";
-import {RestaurantUser} from "@/app/auth/register/page";
+import {RestaurantUser} from "@/lib/constant";
 
 
 
@@ -36,7 +36,7 @@ export async function signup(formData: RestaurantUser) {
         .insert(inserData)
 
 
-     const resp  = await supabase.auth.signInWithPassword({
+         await supabase.auth.signInWithPassword({
          email: formData.email,
          password: formData.password,
      })

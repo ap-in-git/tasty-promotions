@@ -3,8 +3,7 @@
 import React, {useEffect} from "react";
 import {createClient} from "@/lib/supabase/client";
 import PromotionCard from "@/components/promotion-card";
-import {RestaurantUser} from "@/app/auth/register/page";
-import {PromotionResult} from "@/components/manage-bookmark/ManagePromotion";
+import {PromotionResult, RestaurantUser} from "@/lib/constant";
 
 interface Props {
     userId: string;

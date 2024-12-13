@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from "@/components/navbar";
 import {createClient} from "@/lib/supabase/server";
-import ManagePromotion from "@/components/manage-promotion/ManagePromotion";
 import ManageBookmark from "@/components/manage-promotion/ManagePromotion";
 const Page = async () => {
 

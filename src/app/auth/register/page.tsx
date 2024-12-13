@@ -5,22 +5,10 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {signup} from "@/app/auth/register/action";
 import {Checkbox} from "@/components/ui/checkbox";
-import {foodTags} from "@/lib/constant";
+import {foodTags, RestaurantUser, UserType} from "@/lib/constant";
 
 
-type UserType = "Restaurant" | "Foodie";
 
-export interface RestaurantUser {
-    user_id?: string
-    first_name: string;
-    last_name: string;
-    password: string;
-    email: string;
-    user_type: UserType;
-    restaurant_name?: string;
-    sign_up_for_newsletter?: boolean;
-    tags: string[]
-}
 
 
 

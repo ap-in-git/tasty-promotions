@@ -1,9 +1,8 @@
 "use client"
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React from "react";
+import { useForm,  } from "react-hook-form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {useRouter} from "next/navigation";
 import {login} from "@/app/auth/login/action";
 import Link from "next/link";
 

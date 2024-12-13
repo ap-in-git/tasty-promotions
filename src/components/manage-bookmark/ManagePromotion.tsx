@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import {createClient} from "@/lib/supabase/client";
 import PromotionCard from "@/components/promotion-card";
-import {RestaurantUser} from "@/app/auth/register/page";
+import {PromotionResult, RestaurantUser} from "@/lib/constant";
 
 interface Props {
     userId: string;
@@ -28,20 +28,6 @@ type FormData = {
     validTill: string;
     promotionImage: FileList;
 };
-
-export interface PromotionResult {
-    id: string
-    created_at: string
-    user_id: string
-    discount_type: string
-    discount_value: string
-    description: string
-    valid_till: string
-    image_url: string
-    discount_title: string
-    liked_by?: number
-    user?: RestaurantUser
-}
 
 
 const ManagePromotion: React.FC<Props> =  ({ userId }) => {

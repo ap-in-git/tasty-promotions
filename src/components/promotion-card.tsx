@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {BookHeart, Calendar, Heart} from 'lucide-react';
-import {PromotionResult} from "@/components/manage-promotion/ManagePromotion";
 import dayjs from "dayjs";
 import {Button} from "@/components/ui/button";
-import {createClient} from "@/lib/supabase/client"; // Add required icons
+import {createClient} from "@/lib/supabase/client";
+import {PromotionResult} from "@/lib/constant"; // Add required icons
 
 
 const PromotionCard: React.FC<{
