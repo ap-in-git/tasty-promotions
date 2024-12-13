@@ -9,31 +9,12 @@ interface Props {
     userId: string;
 }
 
-type FormData = {
-    discountTitle: string;
-    discountType: string;
-    discountValue: string;
-    description: string;
-    validTill: string;
-    promotionImage: FileList;
-};
-
 
 const ManageBookmark: React.FC<Props> =  ({ userId }) => {
     const [promotionResults, setPromotionResults] = React.useState<PromotionResult[]>([]);
     const supabase =  createClient()
-    // const fetchPromotions = async () => {
-    //    const {data} =  await supabase.from('promotions').select('*').eq('user_id', userId)
-    //     if (data !== null){
-    //         for (const promotion of data ){
-    //             const user = await supabase.from('users').select('*').eq('user_id',promotion.user_id)
-    //             promotion.user = user.data?.[0] as RestaurantUser
-    //             const likedByResults = await supabase.from('user_likes').select('*').eq('promotion_id',promotion.id)
-    //             promotion.liked_by = likedByResults.data?.length
-    //         }
-    //         setPromotionResults(data)
-    //     }
-    // }
+    const [userLikes,setUserLikes] = React.useState<string[]>([])
+
     const fetchPromotions = async () => {
         const {data: userLikeData} =  await supabase.from('user_likes').select('*').eq('user_id',userId)
         if (userLikeData !== null){

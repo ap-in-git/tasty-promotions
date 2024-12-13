@@ -27,7 +27,6 @@ type FormData = {
 const ManagePromotion: React.FC<Props> =  ({ userId }) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
     const [promotionResults, setPromotionResults] = React.useState<PromotionResult[]>([]);
-    const [userLikes,setUserLikes] = React.useState<string[]>([])
     const supabase =  createClient()
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const fetchPromotions = async () => {
@@ -179,7 +178,7 @@ const ManagePromotion: React.FC<Props> =  ({ userId }) => {
             </div>
             <div className={"flex flex-col gap-4 mt-4"}>
                 {
-                    promotionResults.map((promotionResult, index) => <PromotionCard userLikes={userLikes} showBookmark={true} fetchPromotions={fetchPromotions} showAction={true} promotion={promotionResult} key={index}/>)
+                    promotionResults.map((promotionResult, index) => <PromotionCard userLikes={[]} showBookmark={false} fetchPromotions={fetchPromotions} showAction={true} promotion={promotionResult} key={index}/>)
                 }
             </div>
 
