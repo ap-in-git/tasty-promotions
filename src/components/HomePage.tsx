@@ -46,19 +46,26 @@ const HomePage : React.FC<{
     }
 
     const filterPromotionsByTag = (promotionTag: string) => {
-        const promotins = [...originalPromotions].filter( op => {
-            if (op.user?.tags?.includes(promotionTag)){
-                return true
-            }
-            return false
-        })
-        if (selectedTags.includes(promotionTag)){
-            setSelectedTags(selectedTags.filter(tag => tag !== promotionTag))
-        }else{
-            setSelectedTags([...selectedTags, promotionTag])
+        // Update selectedTags: Add or remove the tag
+        const newTags = selectedTags.includes(promotionTag)
+            ? selectedTags.filter(tag => tag !== promotionTag)
+            : [...selectedTags, promotionTag];
+
+        setSelectedTags(newTags);
+
+        // If no tags are selected, show all promotions
+        if (newTags.length === 0) {
+            setFilteredPromotions(originalPromotions);
+            return;
         }
-        setFilteredPromotions(promotins)
-    }
+
+        // Filter promotions by checking if any of the user's tags match the selected tags
+        const filteredPromotions = originalPromotions.filter(promotion =>
+            promotion.user?.tags?.some(tag => newTags.includes(tag))
+        );
+
+        setFilteredPromotions(filteredPromotions);
+    };
     useEffect(() => {
         fetchPromotions()
         fetchUserLikes()

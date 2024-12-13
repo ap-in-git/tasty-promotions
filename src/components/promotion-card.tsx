@@ -67,7 +67,7 @@ const PromotionCard: React.FC<{
 
 
     return (
-        <div className="max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-md">
+        <div className="max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-md" style={{width: 400}}>
             {/* Image Container */}
             <div className="relative">
                 {/* Promotion Image */}

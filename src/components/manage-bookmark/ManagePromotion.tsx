@@ -33,6 +33,7 @@ type FormData = {
 const ManagePromotion: React.FC<Props> =  ({ userId }) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
     const [promotionResults, setPromotionResults] = React.useState<PromotionResult[]>([]);
+    const [open, setOpen] = React.useState(false);
     const supabase =  createClient()
     const fetchPromotions = async () => {
        const {data} =  await supabase.from('promotions').select('*').eq('user_id', userId)
@@ -89,6 +90,9 @@ const ManagePromotion: React.FC<Props> =  ({ userId }) => {
                 }
 
                 alert("Promotion saved successfully!");
+                setOpen(true)
+                fetchPromotions()
+
                 reset(); // Reset the form on successful submission
             } else {
                 alert("Please upload a promotion image.");
@@ -104,7 +108,7 @@ const ManagePromotion: React.FC<Props> =  ({ userId }) => {
     return (
         <div className="mt-4">
             <div className="flex justify-end w-full">
-                <Dialog>
+                <Dialog open={open}>
                     <DialogTrigger asChild>
                         <Button variant="outline">Add new promotion</Button>
                     </DialogTrigger>
