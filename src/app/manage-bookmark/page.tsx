@@ -1,8 +1,9 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Navbar from "@/components/navbar";
-import HomePage from "@/components/HomePage";
 import {createClient} from "@/lib/supabase/server";
-const Page = async  () => {
+import ManagePromotion from "@/components/manage-promotion/ManagePromotion";
+import ManageBookmark from "@/components/manage-promotion/ManagePromotion";
+const Page = async () => {
 
     const supabase = await createClient()
     const { data } = await  supabase.auth.getUser()
@@ -10,7 +11,7 @@ const Page = async  () => {
     return (
         <div className={"p-8"}>
             <Navbar/>
-            <HomePage userId={data.user?.id || ""}/>
+            <ManageBookmark userId={data.user?.id || ""}/>
         </div>
     );
 };
