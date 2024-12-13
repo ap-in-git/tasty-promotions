@@ -49,6 +49,7 @@ const RegistrationForm: React.FC = () => {
     // This will handle form submission
     const onSubmit = async (formData: RestaurantUser) => {
         try {
+            formData.user_type = userType;
             // Call the `signup` action with formData
             await signup(formData);
             console.log("Registration successful:", formData);
