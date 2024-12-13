@@ -24,33 +24,23 @@ type FormData = {
 
 
 
-const ManageBookmark: React.FC<Props> =  ({ userId }) => {
+const ManagePromotion: React.FC<Props> =  ({ userId }) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
     const [promotionResults, setPromotionResults] = React.useState<PromotionResult[]>([]);
     const [userLikes,setUserLikes] = React.useState<string[]>([])
     const supabase =  createClient()
+    const [dialogOpen, setDialogOpen] = React.useState(false);
     const fetchPromotions = async () => {
-       const {data: userLikeData} =  await supabase.from('user_likes').select('*').eq('user_id',userId)
-        if (userLikeData !== null){
-            setUserLikes( userLikeData.map( f => f.promotion_id.toString()))
-            let {data} =  await supabase.from('promotions').select('*')
-            if (data !== null){
-                for (const promotion of data ){
-                    const user = await supabase.from('users').select('*').eq('user_id',promotion.user_id)
-                    promotion.user = user.data?.[0] as RestaurantUser
-                    const likedByResults = await supabase.from('user_likes').select('*').eq('promotion_id',promotion.id)
-                    promotion.liked_by = likedByResults.data?.length
-                }
-                data = data.filter( f => {
-                    if (userLikes?.includes(f.id.toString())){
-                        return true
-                    }
-                    return  false
-                })
-                setPromotionResults(data)
+       const {data} =  await supabase.from('promotions').select('*').eq('user_id', userId)
+        if (data !== null){
+            for (const promotion of data ){
+                const user = await supabase.from('users').select('*').eq('user_id',promotion.user_id)
+                promotion.user = user.data?.[0] as RestaurantUser
+                const likedByResults = await supabase.from('user_likes').select('*').eq('promotion_id',promotion.id)
+                promotion.liked_by = likedByResults.data?.length
             }
+            setPromotionResults(data)
         }
-
     }
     useEffect(() => {
         fetchPromotions()
@@ -96,6 +86,8 @@ const ManageBookmark: React.FC<Props> =  ({ userId }) => {
 
                 alert("Promotion saved successfully!");
                 reset(); // Reset the form on successful submission
+                setDialogOpen(false)
+                fetchPromotions()
             } else {
                 alert("Please upload a promotion image.");
             }
@@ -110,9 +102,9 @@ const ManageBookmark: React.FC<Props> =  ({ userId }) => {
     return (
         <div className="mt-4">
             <div className="flex justify-end w-full">
-                <Dialog>
+                <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button variant="outline">Add new promotion</Button>
+                            <Button variant="outline">Add new promotion</Button>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
@@ -185,12 +177,14 @@ const ManageBookmark: React.FC<Props> =  ({ userId }) => {
                     </DialogContent>
                 </Dialog>
             </div>
-            {
-                promotionResults.map((promotionResult, index) => <PromotionCard userLikes={userLikes} showBookmark={true} fetchPromotions={fetchPromotions} showAction={false} promotion={promotionResult} key={index}/>)
-            }
+            <div className={"flex flex-col gap-4 mt-4"}>
+                {
+                    promotionResults.map((promotionResult, index) => <PromotionCard userLikes={userLikes} showBookmark={true} fetchPromotions={fetchPromotions} showAction={true} promotion={promotionResult} key={index}/>)
+                }
+            </div>
 
         </div>
     );
 };
 
-export default ManageBookmark;
+export default ManagePromotion;
