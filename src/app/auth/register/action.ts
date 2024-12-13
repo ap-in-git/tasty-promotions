@@ -36,7 +36,7 @@ export async function signup(formData: RestaurantUser) {
         .insert(inserData)
 
 
-         await supabase.auth.signInWithPassword({
+    const result = await supabase.auth.signInWithPassword({
          email: formData.email,
          password: formData.password,
      })

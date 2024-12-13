@@ -59,7 +59,9 @@ const RegistrationForm: React.FC = () => {
     };
 
     return (
+
         <div className={"flex h-screen items-center justify-center w-screen"}>
+
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg "

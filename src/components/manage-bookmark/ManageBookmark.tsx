@@ -18,7 +18,9 @@ const ManageBookmark: React.FC<Props> =  ({ userId }) => {
     const fetchPromotions = async () => {
         const {data: userLikeData} =  await supabase.from('user_likes').select('*').eq('user_id',userId)
         if (userLikeData !== null){
-            setUserLikes( userLikeData.map( f => f.promotion_id.toString()))
+            const it =
+                userLikeData.map( f => f.promotion_id.toString())
+            setUserLikes(it)
             let {data} =  await supabase.from('promotions').select('*')
             if (data !== null){
                 for (const promotion of data ){
@@ -28,7 +30,7 @@ const ManageBookmark: React.FC<Props> =  ({ userId }) => {
                     promotion.liked_by = likedByResults.data?.length
                 }
                 data = data.filter( f => {
-                    if (userLikes?.includes(f.id.toString())){
+                    if (it?.includes(f.id.toString())){
                         return true
                     }
                     return  false
@@ -48,7 +50,7 @@ const ManageBookmark: React.FC<Props> =  ({ userId }) => {
         <div className="mt-4">
 
             {
-                promotionResults.map((promotionResult, index) => <PromotionCard  showBookmark={false} fetchPromotions={fetchPromotions} showAction={true} promotion={promotionResult} key={index}/>)
+                promotionResults.map((promotionResult, index) => <PromotionCard  showBookmark={true} userId={userId} userLikes={userLikes} fetchPromotions={fetchPromotions} showAction={false} promotion={promotionResult} key={index}/>)
             }
 
         </div>
